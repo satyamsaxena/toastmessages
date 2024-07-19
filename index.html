@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications toastMessage</title>
+    <style media="screen">
+        .toast {
+            visibility: hidden;
+            max-width: 280px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 100%);
+            color: #ffffff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            font-size: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .toast-show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .toast-message img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .toast::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 5px;
+            background: red;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .toast-message img {
+            animation: bounce 3s infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toast" class="toast">
+        <div id="toast-message" class="toast-message"></div>
+    </div>
+</body>
+<script type="text/javascript">
+    // document.addEventListener("DOMContentLoaded", () => {
+    //   const toast = document.getElementById("toast");
+    //   const toastMessage = document.getElementById("toast-message");
+    //   const names = ["Ravi", "Anjali", "Vikram", "Pooja", "Rahul", "Sneha", "Amit", "Priya", "Karan", "Ayesha", "Sanjay", "Nina", "Arjun", "Kavita", "Suresh", "Meera", "Ajay", "Shweta", "Vikas", "Rina", "Raj", "Divya", "Kiran", "Neha", "Rohit", "Tina", "Manoj", "Rekha", "Vivek", "Anita", "Ashok", "Rani", "Harish", "Nidhi", "Satish", "Monika", "Gaurav", "Lata", "Deepak", "Jyoti", "Rakesh", "Geeta", "Naresh", "Simran", "Mohan", "Ritu", "Abhishek", "Ankita", "Arun"];
+    //   const messages = [
+    //     " bought the course!",
+    //     " joined the webinar!",
+    //   ];
+    //
+    //   const times = [
+    //     "1 min ago",
+    //     "5 mins ago",
+    //     "10 mins ago",
+    //     "30 mins ago",
+    //     "1 hr ago",
+    //     "2 hrs ago",
+    //     "3 hrs ago",
+    //     "5 hrs ago",
+    //     "1 day ago",
+    //     "2 days ago",
+    //   ];
+    //
+    //   const notificationMessages = [];
+    //   for (let i = 0; i < 50; i++) {
+    //     const randomName = names[Math.floor(Math.random() * names.length)];
+    //     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    //     const randomTime = times[Math.floor(Math.random() * times.length)];
+    //     notificationMessages.push(`${randomName}${randomMessage}\n${randomTime}`);
+    //   }
+    //
+    //   const randomNotification = notificationMessages[Math.floor(Math.random() * notificationMessages.length)];
+    //   toastMessage.textContent = randomNotification;
+    //   toast.classList.add("toast-show");
+    //
+    //   setTimeout(() => {
+    //     toast.classList.remove("toast-show");
+    //   }, 3000);
+    // });
+    // end every page load
+    // sometimes on with some time interval
+    document.addEventListener("DOMContentLoaded", () => {
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toast-message");
+        const names = ["Ravi", "Anjali", "Vikram", "Pooja", "Rahul", "Sneha", "Amit", "Priya", "Karan", "Ayesha", "Sanjay", "Nina", "Arjun", "Kavita", "Suresh", "Meera", "Ajay", "Shweta", "Vikas", "Rina", "Raj", "Divya", "Kiran", "Neha", "Rohit", "Tina", "Manoj", "Rekha", "Vivek", "Anita", "Ashok", "Rani", "Harish", "Nidhi", "Satish", "Monika", "Gaurav", "Lata", "Deepak", "Jyoti", "Rakesh", "Geeta", "Naresh", "Simran", "Mohan", "Ritu", "Abhishek", "Ankita", "Arun"];
+        const messages = [
+            " just bought the course!",
+            " joined the webinar!",
+        ];
+        const times = [
+            "1 min ago",
+            "5 mins ago",
+            "10 mins ago",
+            "30 mins ago",
+            "1 hr ago",
+            "2 hrs ago",
+            "3 hrs ago",
+            "5 hrs ago",
+            "1 day ago",
+            "2 days ago",
+        ];
+
+        function showUniqueNotification() {
+            const notificationMessages = [];
+            for (let i = 0; i < 50; i++) {
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                const randomTime = times[Math.floor(Math.random() * times.length)];
+                const notification = `${randomName}${randomMessage}\n${randomTime}`;
+                if (!notificationMessages.includes(notification)) {
+                    notificationMessages.push(notification);
+                }
+            }
+
+            if (notificationMessages.length === 0) {
+                for (let i = 0; i < 50; i++) {
+                    const randomName = names[Math.floor(Math.random() * names.length)];
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    const randomTime = times[Math.floor(Math.random() * times.length)];
+                    notificationMessages.push(`${randomName}${randomMessage}\n${randomTime}`);
+                }
+            }
+            const randomNotification = notificationMessages.pop();
+            toastMessage.textContent = randomNotification;
+            toast.classList.add("toast-show");
+            setTimeout(() => {
+                toast.classList.remove("toast-show");
+            }, 3000);
+        }
+
+        setTimeout(() => {
+            showUniqueNotification();
+        }, 5000);
+
+        setTimeout(() => {
+            showUniqueNotification();
+        }, 20000);
+
+        setTimeout(() => {
+            showUniqueNotification();
+        }, 40000);
+
+        setTimeout(() => {
+            showUniqueNotification();
+        }, 70000);
+    });
+</script>
+
+</html>
